@@ -8,10 +8,23 @@ import {
   Typography,
 } from "@mui/material";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
+import { useSelector } from "react-redux";
 const Header = () => {
+  const length = useSelector(
+    (chooseProducts) => chooseProducts.chooseProducts.length
+  );
+  console.log(length);
   return (
     <>
-      <Box sx={{ flexGrow: 1, mb: "30px" }}>
+      <Box
+        sx={{
+          flexGrow: 1,
+          mb: "30px",
+          position: "sticky",
+          top: "0",
+          zIndex: "1000",
+        }}
+      >
         <AppBar position="static">
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -25,7 +38,7 @@ const Header = () => {
                 justifyContent: "center",
               }}
             >
-              <Badge badgeContent={"0"} color="secondary">
+              <Badge badgeContent={length} color="secondary">
                 <ShoppingBagIcon style={{ color: "white" }} />
               </Badge>
             </IconButton>

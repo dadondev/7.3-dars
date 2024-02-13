@@ -7,35 +7,37 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import productSlice from "../redux/productSlice";
+import Cart from "../components/Cart";
+import { useEffect, useState } from "react";
 
 const Main = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
+  const getProducts = async () => {
+    const req = await fetch("https://dummyjson.com/products/");
+    const res = await req.json();
+    const { products } = res;
+    setProducts(products);
+  };
+
   return (
-    <div>
-      <Card sx={{ maxWidth: 345 }}>
-        <CardActionArea>
-          <CardMedia
-            component="img"
-            height="140"
-            image="/static/images/cards/contemplative-reptile.jpg"
-            alt="green iguana"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              Lizard
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Lizards are a widespread group of squamate reptiles, with over
-              6,000 species, ranging across all continents except Antarctica
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-        <CardActions>
-          <Button size="small" color="primary">
-            Share
-          </Button>
-        </CardActions>
-      </Card>
+    <div
+      style={{
+        display: "flex",
+        flexWrap: "wrap",
+        padding: "0 1.5rem",
+        gap: "20px",
+        justifyContent: "space-evenly",
+      }}
+    >
+      {products &&
+        products.map((product) => <Cart props={product} key={product.id} />)}
     </div>
   );
 };
