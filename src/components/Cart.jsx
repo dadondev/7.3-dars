@@ -19,11 +19,22 @@ const Cart = ({ props }) => {
     dispatch(productSlice.actions.addProduct(props));
   };
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card
+      sx={{
+        maxWidth: 345,
+        maxHeight: 400,
+        display: "grid",
+      }}
+      style={{
+        display: "grid",
+        gridTemplateColumns: "300px_100px",
+      }}
+    >
       <CardActionArea>
         <CardMedia
           component="img"
-          height="140"
+          height="100"
+          sx={{ maxHeight: "140px" }}
           image={images[0]}
           alt="green iguana"
         />
